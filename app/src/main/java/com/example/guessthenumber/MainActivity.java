@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
         timer.start();
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
