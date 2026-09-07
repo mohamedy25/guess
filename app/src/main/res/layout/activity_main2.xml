@@ -33,13 +33,23 @@
         android:layout_marginTop="40dp" />
 
     <Button
-        android:id="@+id/backButton"
+        android:id="@+id/newGameButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="BACK"
+        android:text="NEW GAME"
         app:layout_constraintTop_toBottomOf="@id/scoreText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="40dp" />
+
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="EXIT"
+        app:layout_constraintTop_toBottomOf="@id/newGameButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

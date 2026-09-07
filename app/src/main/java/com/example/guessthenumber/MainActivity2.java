@@ -1,5 +1,6 @@
 package com.example.guessthenumber;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,33 +10,38 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity2 extends AppCompatActivity {
 
     private TextView scoreText;
-    private Button backButton;
+    private Button newGameButton;
+    private Button exitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // فتح صفحة الـ Score
         setContentView(R.layout.activity_main2);
 
-        // ربط العناصر
         scoreText = findViewById(R.id.scoreText);
-        backButton = findViewById(R.id.backButton);
+        newGameButton = findViewById(R.id.newGameButton);
+        exitButton = findViewById(R.id.exitButton);
 
-        // استقبال الـ score من MainActivity
         int score = getIntent().getIntExtra("score", 0);
 
-        // عرض الـ score
         scoreText.setText("Score: " + score);
 
+        newGameButton.setOnClickListener(v -> {
 
-        // =========================
-        // BACK BUTTON
-        // =========================
+            Intent intent = new Intent(
+                    MainActivity2.this,
+                    MainActivity.class
+            );
 
-        backButton.setOnClickListener(v -> {
+            startActivity(intent);
 
             finish();
+        });
+
+        exitButton.setOnClickListener(v -> {
+
+            finishAffinity();
         });
     }
 }
