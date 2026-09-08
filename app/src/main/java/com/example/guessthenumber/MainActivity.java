@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
             if (guess == num) {
 
-                score++;
+                score+=2;
 
-                t2.setText("Correct!");
+                t2.setText("Correct!, you won 2 points");
 
                 num = (int) (Math.random() * 21);
 
@@ -86,18 +86,19 @@ public class MainActivity extends AppCompatActivity {
             if (count > 5) {
 
                 timer.cancel();
+                score--;
 
-                Intent intent = new Intent(
-                        MainActivity.this,
-                        MainActivity2.class
-                );
+t2.setText("you lost 1 point");
+                num = (int) (Math.random() * 21);
 
-                intent.putExtra("score", score);
+                count = 0;
 
-                startActivity(intent);
+                startTimer();
 
-                finish();
             }
+
+
+
         });
     }
 
