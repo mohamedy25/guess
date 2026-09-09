@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView t2;
     private TextView timerText;
 
-    private Button bt, startbt;
+    private Button bt;
     private EditText et, name;
 
     private int num;
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private int count = 0;
 
     private CountDownTimer timer;
+    private boolean gameStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,36 +34,46 @@ public class MainActivity extends AppCompatActivity {
         t1 = findViewById(R.id.textView);
         t2 = findViewById(R.id.textView2);
         timerText = findViewById(R.id.timerText);
-        startbt = findViewById(R.id.startbt);
         name = findViewById(R.id.name);
         bt = findViewById(R.id.button);
         et = findViewById(R.id.editTextText);
 
         num = (int) (Math.random() * 21);
 
-        et.setEnabled(false);
-        bt.setEnabled(false);
+        et.setOnFocusChangeListener((v, hasFocus) -> {
 
-        startbt.setOnClickListener(v -> {
+            if (hasFocus && !gameStarted) {
 
-            String playerName = name.getText().toString().trim();
+                String playerName = name.getText().toString().trim();
 
-            if (playerName.isEmpty()) {
-                name.setError("Please enter your name");
-                name.requestFocus();
-                return;
+                if (playerName.isEmpty()) {
+                    name.setError("Please enter your name");
+                    name.requestFocus();
+                    return;
+                }
+
+                gameStarted = true;
+                name.setEnabled(false);
+                startTimer();
             }
-
-            et.setEnabled(true);
-            bt.setEnabled(true);
-
-            startbt.setEnabled(false);
-            name.setEnabled(false);
-
-            startTimer();
         });
 
         bt.setOnClickListener(v -> {
+
+            if (!gameStarted) {
+
+                String playerName = name.getText().toString().trim();
+
+                if (playerName.isEmpty()) {
+                    name.setError("Please enter your name");
+                    name.requestFocus();
+                    return;
+                }
+
+                gameStarted = true;
+                name.setEnabled(false);
+                startTimer();
+            }
 
             String input = et.getText().toString();
 
@@ -140,7 +151,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                timerText.setText("Time: " + (millisUntilFinished / 1000));
+                timerText.setText(
+                        "Time: " + (millisUntilFinished / 1000)
+                );
             }
 
             @Override
