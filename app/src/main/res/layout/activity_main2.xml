@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="120dp" />
+        android:layout_marginTop="100dp" />
 
     <TextView
         android:id="@+id/scoreText"
@@ -30,14 +30,27 @@
         app:layout_constraintTop_toBottomOf="@id/scoreTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/highScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="High Score: 0"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/scoreText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp" />
 
     <Button
         android:id="@+id/newGameButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="NEW GAME"
-        app:layout_constraintTop_toBottomOf="@id/scoreText"
+        app:layout_constraintTop_toBottomOf="@id/highScoreText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="40dp" />

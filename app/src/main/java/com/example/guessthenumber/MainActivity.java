@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView t2;
     private TextView timerText;
 
-    private Button bt;
-    private EditText et;
+    private Button bt, startbt;
+    private EditText et, name;
 
     private int num;
     private int score = 0;
@@ -33,13 +33,34 @@ public class MainActivity extends AppCompatActivity {
         t1 = findViewById(R.id.textView);
         t2 = findViewById(R.id.textView2);
         timerText = findViewById(R.id.timerText);
-
+        startbt = findViewById(R.id.startbt);
+        name = findViewById(R.id.name);
         bt = findViewById(R.id.button);
         et = findViewById(R.id.editTextText);
 
         num = (int) (Math.random() * 21);
 
-        startTimer();
+        et.setEnabled(false);
+        bt.setEnabled(false);
+
+        startbt.setOnClickListener(v -> {
+
+            String playerName = name.getText().toString().trim();
+
+            if (playerName.isEmpty()) {
+                name.setError("Please enter your name");
+                name.requestFocus();
+                return;
+            }
+
+            et.setEnabled(true);
+            bt.setEnabled(true);
+
+            startbt.setEnabled(false);
+            name.setEnabled(false);
+
+            startTimer();
+        });
 
         bt.setOnClickListener(v -> {
 
@@ -50,7 +71,14 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            int guess = Integer.parseInt(input);
+            int guess;
+
+            try {
+                guess = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                t2.setText("Enter a valid number!");
+                return;
+            }
 
             if (guess < 0 || guess > 20) {
                 t2.setText("Enter a number from 0 to 20!");
@@ -62,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
 
             if (guess == num) {
 
-                score+=2;
+                score += 2;
 
-                t2.setText("Correct!, you won 2 points");
+                t2.setText("Correct! You won 2 points");
 
                 num = (int) (Math.random() * 21);
 
@@ -85,20 +113,20 @@ public class MainActivity extends AppCompatActivity {
 
             if (count > 5) {
 
-                timer.cancel();
+                if (timer != null) {
+                    timer.cancel();
+                }
+
                 score--;
 
-t2.setText("you lost 1 point");
+                t2.setText("You lost 1 point");
+
                 num = (int) (Math.random() * 21);
 
                 count = 0;
 
                 startTimer();
-
             }
-
-
-
         });
     }
 
@@ -126,6 +154,7 @@ t2.setText("you lost 1 point");
                 );
 
                 intent.putExtra("score", score);
+                intent.putExtra("name", name.getText().toString());
 
                 startActivity(intent);
 
@@ -135,6 +164,7 @@ t2.setText("you lost 1 point");
 
         timer.start();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -144,4 +174,3 @@ t2.setText("you lost 1 point");
         }
     }
 }
-
